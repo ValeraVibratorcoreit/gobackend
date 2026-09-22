@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-schedule}
+      POSTGRES_USER: ${DB_USER:-schedule}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-schedule}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/1_schema.sql
+      # seed.sql появится на паре 2:
+      # - ./seed.sql:/docker-entrypoint-initdb.d/2_seed.sql
+
+  api:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      PORT: 8080
+      DATABASE_URL: postgres://${DB_USER:-schedule}:${DB_PASSWORD:-schedule}@db:5432/${DB_NAME:-schedule}?sslmode=disable
+    ports:
+      - "8080:8080"
+
+volumes:
+  db_data:
