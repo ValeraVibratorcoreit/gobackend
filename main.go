@@ -15,9 +15,6 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/health", healthHandler)
 
-	// Бизнес-эндпоинты (/lessons, /groups, /teachers, /subjects)
-	// подключаются здесь на паре 2, в handlers.go.
-
 	log.Printf("listening on :%s", port)
 	if err := http.ListenAndServe(":"+port, mux); err != nil {
 		log.Fatal(err)
