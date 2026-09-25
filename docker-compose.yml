@@ -13,8 +13,7 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
       - ./schema.sql:/docker-entrypoint-initdb.d/1_schema.sql
-      # seed.sql появится на паре 2:
-      # - ./seed.sql:/docker-entrypoint-initdb.d/2_seed.sql
+      - ./seed.sql:/docker-entrypoint-initdb.d/2_seed.sql
 
   api:
     build: .
@@ -26,6 +25,18 @@ services:
       DATABASE_URL: postgres://${DB_USER:-schedule}:${DB_PASSWORD:-schedule}@db:5432/${DB_NAME:-schedule}?sslmode=disable
     ports:
       - "8080:8080"
+
+  frontend:
+    image: nginx:alpine
+    restart: unless-stopped
+    depends_on:
+      - api
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+      - ./styles.css:/usr/share/nginx/html/styles.css:ro
+      - ./app.js:/usr/share/nginx/html/app.js:ro
+    ports:
+      - "3000:80"
 
 volumes:
   db_data:

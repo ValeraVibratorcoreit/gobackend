@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Расписание занятий</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Расписание занятий</h1>
+  </header>
+
+  <main>
+    <div id="error-banner" class="error-banner" hidden></div>
+
+    <section class="filters">
+      <label>
+        Группа:
+        <select id="filter-group">
+          <option value="">Все группы</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="new-lesson">
+      <h2>Добавить занятие</h2>
+      <form id="lesson-form">
+        <label>
+          Предмет
+          <select id="f-subject" required></select>
+        </label>
+        <label>
+          Преподаватель
+          <select id="f-teacher" required></select>
+        </label>
+        <label>
+          Группа
+          <select id="f-group" required></select>
+        </label>
+        <label>
+          Аудитория
+          <select id="f-classroom">
+            <option value="">—</option>
+          </select>
+        </label>
+        <label>
+          День недели
+          <select id="f-day" required>
+            <option value="1">Понедельник</option>
+            <option value="2">Вторник</option>
+            <option value="3">Среда</option>
+            <option value="4">Четверг</option>
+            <option value="5">Пятница</option>
+            <option value="6">Суббота</option>
+            <option value="7">Воскресенье</option>
+          </select>
+        </label>
+        <label>
+          Начало
+          <input type="time" id="f-start" required>
+        </label>
+        <label>
+          Конец
+          <input type="time" id="f-end" required>
+        </label>
+        <button type="submit">Добавить</button>
+      </form>
+    </section>
+
+    <section class="lessons">
+      <h2>Занятия</h2>
+      <table id="lessons-table">
+        <thead>
+          <tr>
+            <th>День</th>
+            <th>Время</th>
+            <th>Предмет</th>
+            <th>Преподаватель</th>
+            <th>Группа</th>
+            <th>Аудитория</th>
+            <th>Статус</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="lessons-body">
+        </tbody>
+      </table>
+      <p id="empty-state" hidden>Занятий пока нет.</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

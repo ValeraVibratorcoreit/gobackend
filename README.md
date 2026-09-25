@@ -10,6 +10,8 @@ docker compose up --build
 curl http://localhost:8080/health   # должно вернуть 200
 ```
 
+Открыть в браузере: http://localhost:3000 — вёрстка, ходит в API на :8080.
+
 ## Роли
 
 | Роль | Участник | Отвечает за | Файлы |
@@ -40,6 +42,7 @@ curl http://localhost:8080/health   # должно вернуть 200
 | GET | /groups | — | 200, массив | 500 |
 | GET | /teachers | — | 200, массив | 500 |
 | GET | /subjects | — | 200, массив | 500 |
+| GET | /classrooms | — | 200, массив | 500 |
 
 ### Объект Lesson
 
